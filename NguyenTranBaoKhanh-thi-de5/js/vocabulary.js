@@ -1,4 +1,4 @@
-let vocabList = JSON.parse(localStorage.getItem("vocabList")) || [];
+let vocabularies = JSON.parse(localStorage.getItem("vocabularies")) || [];
 let categories = JSON.parse(localStorage.getItem("categories")) || [];
 let editIndex = -1;
 
@@ -33,15 +33,15 @@ function addNewWord(e) {
     } else if (category === "") {
       alert("Bạn cần chọn một category");
     } else if (
-      vocabList.filter(
+      vocabularies.filter(
         (vocab) => vocab.word.toLowerCase() === word.toLowerCase()
       ).length > 0
     ) {
       alert("Từ vựng không được trùng");
     } else {
       let newVocab = { word, meaning, category };
-      vocabList.push(newVocab);
-      localStorage.setItem("vocabList", JSON.stringify(vocabList));
+      vocabularies.push(newVocab);
+      localStorage.setItem("vocabularies", JSON.stringify(vocabularies));
       let modal = bootstrap.Modal.getInstance(
         document.getElementById("vocabModal")
       );
@@ -53,15 +53,15 @@ function addNewWord(e) {
     } else if (category === "") {
       alert("Bạn cần chọn một category");
     } else if (
-      vocabList.filter(
+      vocabularies.filter(
         (vocab, index) =>
           vocab.word.toLowerCase() === word.toLowerCase() && index !== editIndex
       ).length > 0
     ) {
       alert("Từ vựng không được trùng");
     } else {
-      vocabList[editIndex] = { word, meaning, category };
-      localStorage.setItem("vocabList", JSON.stringify(vocabList));
+      vocabularies[editIndex] = { word, meaning, category };
+      localStorage.setItem("vocabularies", JSON.stringify(vocabularies));
       editIndex = -1;
       let modal = bootstrap.Modal.getInstance(
         document.getElementById("vocabModal")
@@ -82,7 +82,7 @@ function render() {
   let searchVocab = document.getElementById("searchInput").value.toLowerCase();
 
   body.innerHTML = "";
-  let filteredVocab = vocabList;
+  let filteredVocab = vocabularies;
 
   if (selectedCategory) {
     filteredVocab = filteredVocab.filter(
@@ -103,10 +103,10 @@ function render() {
                 <td>${vocab.meaning}</td>
                 <td>${vocab.category}</td>
                 <td>
-                    <button onclick="editWord(${vocabList.indexOf(
+                    <button onclick="editWord(${vocabularies.indexOf(
                       vocab
                     )})" style="border: none; color: #4667E2; background-color: white; margin-right: 10px;">edit</button>
-                    <button onclick="delWord(${vocabList.indexOf(
+                    <button onclick="delWord(${vocabularies.indexOf(
                       vocab
                     )})" style="border: none; color: #CA533B; background-color: white;">delete</button>
                 </td>
@@ -135,8 +135,8 @@ function delWord(index) {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        vocabList.splice(index, 1);
-        localStorage.setItem("vocabList", JSON.stringify(vocabList));
+        vocabularies.splice(index, 1);
+        localStorage.setItem("vocabularies", JSON.stringify(vocabularies));
         swalWithBootstrapButtons.fire({
           title: "Deleted!",
           text: "Your word has been deleted.",
@@ -155,9 +155,10 @@ function delWord(index) {
 
 function editWord(index) {
   editIndex = index;
-  document.getElementById("wordInput").value = vocabList[index].word;
-  document.getElementById("meaningInput").value = vocabList[index].meaning;
-  document.getElementById("categorySelect").value = vocabList[index].category;
+  document.getElementById("wordInput").value = vocabularies[index].word;
+  document.getElementById("meaningInput").value = vocabularies[index].meaning;
+  document.getElementById("categorySelect").value =
+    vocabularies[index].category;
   document.getElementById("vocabModalLabel").innerText = "Edit Vocabulary";
 
   let modal = new bootstrap.Modal(document.getElementById("vocabModal"));
