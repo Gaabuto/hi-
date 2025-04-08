@@ -26,16 +26,31 @@ function addNewCategory(e) {
     }
   } else {
     document.getElementById("exampleModalLabel").innerText = "Edit Category";
-    categories[editIndex].nameCategory = nameCategory;
-    categories[editIndex].description = description;
-
-    editIndex = -1;
-    document.getElementById("exampleModalLabel").innerText = "Add Category";
+    if (nameCategory == "") {
+      alert("Bạn cần đặt tên cho category");
+    } else if (
+      categories.filter(
+        (category) =>
+          category.nameCategory.toLowerCase() === nameCategory.toLowerCase()
+      ).length > 0
+    ) {
+      alert("Tên không được trùng");
+    } else {
+      categories[editIndex].nameCategory = nameCategory;
+      categories[editIndex].description = description;
+      localStorage.setItem("categories", JSON.stringify(categories));
+      editIndex = -1;
+      document.getElementById("exampleModalLabel").innerText = "Add Category";
+    }
   }
 
   render();
   document.getElementById("addName").value = "";
   document.getElementById("description").value = "";
+  let modal = bootstrap.Modal.getInstance(
+    document.getElementById("exampleModal")
+  );
+  modal.hide();
 }
 
 function render() {
@@ -57,7 +72,7 @@ function render() {
 }
 
 function delCategory(index) {
-  if (confirm()) categories.splice(index, 1);
+  if (confirm("bạn có muốn cứu không?")) categories.splice(index, 1);
   localStorage.setItem("categories", JSON.stringify(categories));
   render();
 }
@@ -71,3 +86,38 @@ function editCategory(index) {
 }
 
 render();
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: "btn btn-success",
+    cancelButton: "btn btn-danger",
+  },
+  buttonsStyling: false,
+});
+swalWithBootstrapButtons
+  .fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: true,
+  })
+  .then((result) => {
+    if (result.isConfirmed) {
+      swalWithBootstrapButtons.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire({
+        title: "Cancelled",
+        text: "Your imaginary file is safe :)",
+        icon: "error",
+      });
+    }
+  });
