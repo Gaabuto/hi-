@@ -3,7 +3,7 @@ let categories = JSON.parse(localStorage.getItem("categories")) || [];
 let editIndex = -1;
 
 function searchBarCategories() {
-  let categorySelect = document.getElementById("categorySelect");
+  let categoryOption = document.getElementById("categorySelect");
   let categoryFilter = document.getElementById("categoryFilter");
 
   if (categories.length === 0) {
@@ -13,10 +13,10 @@ function searchBarCategories() {
     return;
   }
 
-  categorySelect.innerHTML = '<option value="">Select a category</option>';
+  categoryOption.innerHTML = '<option value="">Select a category</option>';
   categoryFilter.innerHTML = '<option value="">All Categories</option>';
   categories.forEach((category) => {
-    categorySelect.innerHTML += `<option value="${category.nameCategory}">${category.nameCategory}</option>`;
+    categoryOption.innerHTML += `<option value="${category.nameCategory}">${category.nameCategory}</option>`;
     categoryFilter.innerHTML += `<option value="${category.nameCategory}">${category.nameCategory}</option>`;
   });
 }
@@ -25,7 +25,7 @@ function addNewWord(e) {
   e.preventDefault();
   let word = document.getElementById("wordInput").value;
   let meaning = document.getElementById("meaningInput").value;
-  let category = document.getElementById("categorySelect").value;
+  let category = document.getElementById("categoryOption").value;
 
   if (editIndex === -1) {
     if (word === "") {
@@ -73,7 +73,7 @@ function addNewWord(e) {
   render();
   document.getElementById("wordInput").value = "";
   document.getElementById("meaningInput").value = "";
-  document.getElementById("categorySelect").value = "";
+  document.getElementById("categoryOption").value = "";
 }
 
 function render() {
@@ -157,7 +157,7 @@ function editWord(index) {
   editIndex = index;
   document.getElementById("wordInput").value = vocabularies[index].word;
   document.getElementById("meaningInput").value = vocabularies[index].meaning;
-  document.getElementById("categorySelect").value =
+  document.getElementById("categoryOption").value =
     vocabularies[index].category;
   document.getElementById("vocabModalLabel").innerText = "Edit Vocabulary";
 
@@ -173,7 +173,7 @@ document
   .addEventListener("hidden.bs.modal", () => {
     document.getElementById("wordInput").value = "";
     document.getElementById("meaningInput").value = "";
-    document.getElementById("categorySelect").value = "";
+    document.getElementById("categoryOption").value = "";
     document.getElementById("vocabModalLabel").innerText = "Add Vocabulary";
     editIndex = -1;
   });
