@@ -2,16 +2,18 @@ function login(e) {
   e.preventDefault();
   window.location.href = "login.html";
 }
+//button sang trang login
 function register(e) {
   e.preventDefault();
   window.location.href = "register.html";
 }
+//btn sang reg
 function unlogin(e) {
   e.preventDefault();
   window.location.href = "unLogin.html";
   localStorage.removeItem("loginacc");
 }
-
+//
 function checklogin() {
   let check = JSON.parse(localStorage.getItem("loginacc")) || [];
   console.log(check);
@@ -29,4 +31,11 @@ function checklogin() {
     welcome.innerHTML = `Chào mừng bạn đã quay lại học, ${statusAcc["lastName"]} ${statusAcc["firstName"]}!`;
   }
 }
+//check xem da login chua, neu chua thi ve trang unlogin, neu roi thi vao la chao
 checklogin();
+
+function connectQuiz(e) {
+  e.preventDefault();
+  window.location.href = "quiz.html";
+}
+// btn vao quiz

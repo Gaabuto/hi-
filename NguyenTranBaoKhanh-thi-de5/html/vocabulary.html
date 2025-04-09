@@ -35,7 +35,7 @@
                         <a class="aHeader" href="../html/categories.html">Categories</a>
                         <a class="choosenOne" href="">Vocabulary</a>
                         <a class="aHeader" href="">Flashcard</a>
-                        <a class="aHeader" href="">Quiz</a>
+                        <a class="aHeader" href="../html/quiz.html">Quiz</a>
                     </div>
                 </div>
             </nav>
@@ -44,14 +44,14 @@
         <div style="margin: 10px 115px;">
             <div id="vocab-container" style="margin: 30px 0;">
                 <div style="display: flex; justify-content: space-between;">
-                    <h2 style="display:inline-block;">Vocabulary List</h2>
+                    <h2 style="display:inline-block;">Vocabulary Words</h2>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vocabModal"
                         style="background-color: #22C55E; border: none; border-radius: 5px; color: white; width: 170px;">
                         Add New Word
                     </button>
                 </div>
                 <div style="margin: 20px 0;">
-                    <select id="categoryFilter" class="form-control" style="width: 100%; display: inline-block;">
+                    <select id="categorySearch" class="form-control" style="width: 100%; display: inline-block;">
                         <option value="">All Categories</option>
                     </select>
                 </div>
@@ -73,6 +73,16 @@
                 </table>
             </div>
         </div>
+                <div style="display: flex; justify-content: center; " >
+                    <span class="paginate-button" style="margin-right: 5px;" onclick="prevPage()">
+                        previous
+                    </span>
+                    <span id="paginate-container">
+                    </span>
+                    <span class="paginate-button" onclick="nextPage()">
+                        next
+                    </span>
+                </div>
         <footer
             style="background-color: #FFFFFF; display: flex; justify-content: center; align-items: center; bottom: 0; position: fixed; width: 100vw;">
             © 2024 VocabApp. All rights reserved.
