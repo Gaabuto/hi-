@@ -47,7 +47,6 @@ function renderPagination() {
   let filteredVocab = getFilteredVocab();
   totalPage = Math.ceil(filteredVocab.length / taskPerPage);
 
-  // Điều chỉnh currentPage nếu vượt quá totalPage
   if (currentPage > totalPage && totalPage > 0) {
     currentPage = totalPage;
   } else if (totalPage === 0) {
@@ -141,7 +140,7 @@ function addNewWord(e) {
 
   document.getElementById("wordInput").value = "";
   document.getElementById("meaningInput").value = "";
-  document.getElementById("categorySelect").value = ""; // Sửa categoryOption thành categorySelect
+  document.getElementById("categorySelect").value = "";
 }
 
 function render() {
@@ -169,6 +168,7 @@ function render() {
         </td>
       </tr>
     `;
+    renderPagination();
   });
 }
 
@@ -234,13 +234,13 @@ document
   });
 
 document.getElementById("categorySearch").addEventListener("change", () => {
-  currentPage = 1; // Reset về trang 1 khi thay đổi bộ lọc
+  currentPage = 1;
   render();
   renderPagination();
 });
 
 document.getElementById("searchInput").addEventListener("input", () => {
-  currentPage = 1; // Reset về trang 1 khi tìm kiếm
+  currentPage = 1; 
   render();
   renderPagination();
 });
