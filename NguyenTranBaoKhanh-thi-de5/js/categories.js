@@ -1,10 +1,3 @@
-javascript;
-
-Collapse;
-
-Wrap;
-
-Copy;
 let categories = JSON.parse(localStorage.getItem("categories")) || [];
 let editIndex = -1;
 let currentPage = 1;
